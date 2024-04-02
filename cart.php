@@ -51,26 +51,6 @@ if(!isset($_SESSION['user_id'])){
             </tr>
           </thead>
           <tbody id="table-body">
-
-            <tr>
-              <th>image</th>
-              <td>Pizza</td>
-              <td>$10</td>
-              <td><a class="btn btn-danger text-white">delete</td>
-            </tr>
-
-            <tr>
-              <th>image</th>
-              <td>Pizza</td>
-              <td>$10</td>
-              <td><a class="btn btn-danger text-white">delete</td>
-            </tr>
-            <tr>
-              <th>image</th>
-              <td>Pizza</td>
-              <td>$10</td>
-              <td><a class="btn btn-danger text-white">delete</td>
-            </tr>
           </tbody>
         </table>
         <div class="position-relative mx-auto" style="max-width: 400px; padding-left: 679px;">

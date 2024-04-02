@@ -111,13 +111,12 @@ $user_id = $_SESSION['user_id'];
 
 
 if(isset($_POST['submit'])){
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $name = $_POST['name'];
-    $address = $_POST['address'];
+    $_SESSION['order_email'] = $_POST['email'];
+    $_SESSION['order_phone'] = $_POST['phone'];
+    $_SESSION['order_name'] = $_POST['name'];
+    $_SESSION['order_address'] = $_POST['address'];
 
-    // $db->insertData("orders",["customer_id"=> $user_id,"ordered_food"=>$ordered_food,
-    // "phone"=>$phone,"name"=>$name,"address"=>$address, "email"=> $email, "price" => $price]);
+   
 
     echo "<script>";
     echo "window.location.href='../php/payment/pay.php'";

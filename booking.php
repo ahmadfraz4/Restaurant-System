@@ -1,4 +1,4 @@
-<?php include "./php/public/global/header.php" ?>
+<?php include "./php/public/global/header.php";?>
 
 <body>
     <div class="container-xxl bg-white p-0">

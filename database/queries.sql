@@ -59,3 +59,5 @@ CREATE TABLE `restoran`.`booking` (
 ) ENGINE = InnoDB;
 ALTER TABLE `booking` ADD `time` DATE NOT NULL AFTER `email`;
 ALTER TABLE `booking` CHANGE `time` `time` DATETIME NOT NULL;
+ALTER TABLE `booking` CHANGE `paid` `status` VARCHAR(20) NOT NULL DEFAULT 'pending';
+ALTER TABLE `booking` ADD `name` VARCHAR(50) NOT NULL AFTER `customer_id`;

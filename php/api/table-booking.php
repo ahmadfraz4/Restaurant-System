@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
  
     if($time > strtotime(date('Y-m-d'))){
         $db = new App;
-        $db->insertData("booking",["customer_id"=>$user_id,"email"=>$email,"time" => date('Y-m-d H:i:s', $time), "people"=>$people,"request"=>$request], $path);
+        $db->insertData("booking",["customer_id"=>$user_id,"name"=>$name,"email"=>$email,"time" => date('Y-m-d H:i:s', $time), "people"=>$people,"request"=>$request], $path);
         // echo $time;
     }else{
         echo 'invalid date';

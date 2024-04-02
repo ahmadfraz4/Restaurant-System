@@ -1,8 +1,7 @@
 <?php
 
 $client_id = 'ATSNyueFgg1IAH6qnR96Z6c3C7Gaqtu8KaJW_VFztgTp_IxpOaMRLswJ58PY0VBlJwcU5z0OC0qmtnni';
-$secret = 'EEX_dgNhBT4aqY8m3aUAAaZqrmJyv7pleKcuzFMp7DfHesFmy_3YKzeL74AizkIINQmoBkiJ8fQwY8E2';
-
+include '../config/config.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,7 +55,9 @@ $secret = 'EEX_dgNhBT4aqY8m3aUAAaZqrmJyv7pleKcuzFMp7DfHesFmy_3YKzeL74AizkIINQmoB
                 },  
                 onApprove : (data, actions) => {
                     return actions.order.capture().then(function(orderData){
+                        
 
+                        window.location.href = '<?php echo $path.'/php/api/complete-order.php' ?>'
                     })
                 }
             }).render('#paypal-button-container')

@@ -28,7 +28,16 @@
                 <a href="<?php echo APP_URL; ?>/auth/login.php" class="nav-item nav-link">Login</a>
                 <a href="<?php echo APP_URL; ?>/auth/register.php" class="nav-item nav-link">Register</a>
             <?php  }else{ ?>
-                <a href="<?php echo APP_URL; ?>/auth/logout.php" class="nav-item nav-link">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     <?php echo $_SESSION['email'] ?>
+                    </a>
+                    <ul class="dropdown-menu" style="top: 60px; right: 0; ">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>/php/api/booked.php">Bookings</a></li>
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>/php/api/orders.php">Orders</a></li>
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>/auth/logout.php">Logout</a></li>
+                    </ul>
+                </li>
             <?php } ?>
 
 
