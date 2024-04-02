@@ -1,6 +1,4 @@
-<?php
 
-require "../config/config.php"; ?>
 <?php
 
 class App
@@ -77,7 +75,7 @@ class App
     }
     
     // Add :- insert data ======= both file data and simple data
-    public function insertData($table, $params = array())
+    public function insertData($table, $params, $path = '', $sessions = array(), $id_to_save = '')
     {
         if ($this->isTableExist($table)) {
 
@@ -103,34 +101,38 @@ class App
 
             $types = array();
             if ($stmt) {
-                foreach ($params as $datatype) {
-                    if (is_string($datatype)) {
-                        $types[] = 's';
-                    } elseif (is_int($datatype)) {
-                        $types[] = 'i';
-                    } elseif (is_float($datatype)) {
-                        $types[] = 'd';
-                    }
-                }
-
-
+                $types = $this->filterTypes($params);
                 $stmt->bind_param(implode("", $types), ...array_values($params));
 
                 if ($stmt->execute()) {
-                    echo "Data inserted successfully.";
-                } else {
-                    echo "Failed to insert data.";
+                    // Retrieve the last inserted ID
+                    $last_Inserted_Id = $this->link->insert_id;
+                    if(session_status() == PHP_SESSION_NONE){
+                        session_start();
+                    }
+                    if(is_array($sessions) && !empty($sessions)){
+                        foreach($sessions as $key => $val){
+                            $_SESSION["$key"] = $val;
+                        }
+                    }
+                    if($id_to_save != ''){
+                        $_SESSION["$id_to_save"] = $last_Inserted_Id;
+                    }
+                    if($path != ''){
+                        header("location: $path");
+                    }
+
+                }else{
+                    echo "Something went wrong";
                 }
             } else {
                 echo "Failed to prepare statement.";
             }
-        } else {
-            echo "Table not exist";
-        }
+        } 
     }
 
     // Update :- update data ====== both file data and simple data
-    public function updateData($table, $params = array(), $conditions = array())
+    public function updateData($table, $params , $conditions = array())
     {
         if ($this->isTableExist($table)) {
          
@@ -221,8 +223,8 @@ class App
     }
 
     // login for user 
-    public function login($email, $password,$path){
-        $query1 = "SELECT * from sample where email = '$email'";
+    public function login($email, $password,$path = ""){
+        $query1 = "SELECT * from user where email = '$email'";
         $stmt =  $this->link->prepare($query1);   
         $stmt->execute();
         $result = $stmt->get_result();
@@ -232,8 +234,10 @@ class App
             
             $row = $result->fetch_assoc();
             if($password == $row['password']){
-                print_r($row);
-                header("location: $path");
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['user_id'] = $row['id'];
+                header("location: ".APP_URL);
             }else{
                 echo 'invalid';
             }
@@ -331,7 +335,7 @@ class App
    
 }
 
-$obj = new App;
+// $obj = new App;
 
 // endpoints --------
 
@@ -343,10 +347,10 @@ $obj = new App;
 //  $obj->insertData("user",["name"=>"kaka"]);
 // $obj->insertData("register", ["name" => $name, "age" => $age, "file" => $file]);
 // $obj->updateData("sample", ["name"=>"glery", "age"=>22] ,["id"=>1]);
-$obj->deleteData('user', ["id"=>33]);
+// $obj->deleteData('user', ["id"=>33]);
 // $obj->login("abc@gmail.com","pakistan1",'');
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -355,24 +359,21 @@ $obj->deleteData('user', ["id"=>33]);
     <title>op</title>
 </head>
 
-<body>
-    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-        <input type="text" name="name">
-        <input type="number" name="age">
-        <input type="file" name="img">
-        <input type="submit" value="submit" name="sub">
-    </form>
-    <?php if (isset($_POST['sub'])) {
+<body> -->
+ 
+    <?php 
+    // if (isset($_POST['sub'])) {
 
-        $name = $_POST['name'];
-        $age = $_POST['age'];
-        $file = $_FILES['img'];
+        // $name = $_POST['name'];
+        // $age = $_POST['age'];
+        // $file = $_FILES['img'];
         
         // $obj->updateData("register", ["name" => $name, "age" => $age], ["id"=>2]);
         // $obj->insertData("register", ["name" => $name, "age" => $age, "file" => $file]);
         // $obj->updateData("register", ["name" => $name, "age" => $age, "file" => $file], ["id"=>3]);
 
-    } ?>
-</body>
+    // } 
+    ?>
+<!-- </body>
 
-</html>
+</html> -->

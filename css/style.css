@@ -477,3 +477,6 @@
     padding-right: 0;
     border-right: none;
 }
+button:disabled{
+    cursor: not-allowed !important;
+}
