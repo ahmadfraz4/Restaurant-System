@@ -21,6 +21,7 @@ $user_id = $_SESSION['user_id'];
         echo '<script>';
         echo "localStorage.removeItem('cart');";
         echo "window.location.href='$path'";
+        
         echo "</script>";
     
     ?>

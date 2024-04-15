@@ -87,7 +87,7 @@ if(!isset($_SESSION['user_id'])){
         let td4 = document.createElement('td');
 
         let img = document.createElement('img');
-        img.src= `img/${item.image}`;
+        img.src= `<?php echo APP_URL; ?>/php/uploads/${item.image}`;
 
         let delBtn = document.createElement('button');
         delBtn.classList.add('btn', 'btn-danger', 'text-white');

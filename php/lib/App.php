@@ -3,6 +3,7 @@
 
 class App
 {
+    public $app_path = "D:/Xampp/htdocs/01_php/00_projects/02_restorant";
     public $host = HOST;
     public $dbname = DB_NAME;
     public $user = USER;
@@ -237,6 +238,7 @@ class App
                 session_start();
                 $_SESSION['email'] = $email;
                 $_SESSION['user_id'] = $row['id'];
+                $_SESSION['admin'] = $row['admin'];
                 header("location: ".APP_URL);
             }else{
                 echo 'invalid';
@@ -300,7 +302,7 @@ class App
         }
         // move_uploaded_file($tmp_name, '../uploads/'.$newName);
 
-        if (move_uploaded_file($tmp_name, '../uploads/'.$newName)) {
+        if (move_uploaded_file($tmp_name, $this->app_path . "/php/uploads/" .$newName)) {
             // print_r($file);
             return $newName;
         }

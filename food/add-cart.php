@@ -52,7 +52,7 @@ $food = $db->selectData("food",["id"=>$id])[0];
                     <div class="col-md-6">
                         <div class="row g-3">
                             <div class="col-12 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="<?php echo APP_URL; ?>/img/<?php echo $food['image'] ?>">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="<?php echo APP_URL; ?>/php/uploads/<?php echo $food['image'] ?>">
                             </div>
 
                         </div>

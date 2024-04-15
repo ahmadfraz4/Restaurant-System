@@ -23,14 +23,23 @@
              if (session_status() === PHP_SESSION_NONE) {
                 session_start(); // Start the session
              }
+             if(isset($_SESSION['admin'])){
+                 if($_SESSION['admin'] == 1){
+                    ?>
+                    <a href="<?php echo APP_URL; ?>/admin/add-food.php" class="nav-item nav-link">Add Food</a>
+            <?php 
+                }
+             }
               if(!isset($_SESSION['user_id'])){
+               
              ?>
+
                 <a href="<?php echo APP_URL; ?>/auth/login.php" class="nav-item nav-link">Login</a>
                 <a href="<?php echo APP_URL; ?>/auth/register.php" class="nav-item nav-link">Register</a>
             <?php  }else{ ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                     <?php echo $_SESSION['email'] ?>
+                     <?php  echo $_SESSION['email']; ?>
                     </a>
                     <ul class="dropdown-menu" style="top: 60px; right: 0; ">
                         <li><a class="dropdown-item" href="<?php echo APP_URL; ?>/php/api/booked.php">Bookings</a></li>

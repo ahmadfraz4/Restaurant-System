@@ -17,7 +17,6 @@ CREATE TABLE `restoran`.(
     `image` VARCHAR(225) NOT NULL,
     `description` TEXT NOT NULL,
     `price` VARCHAR(30) NOT NULL,
-    `meal_id` INT NOT NULL,
     `created_At` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
@@ -61,3 +60,4 @@ ALTER TABLE `booking` ADD `time` DATE NOT NULL AFTER `email`;
 ALTER TABLE `booking` CHANGE `time` `time` DATETIME NOT NULL;
 ALTER TABLE `booking` CHANGE `paid` `status` VARCHAR(20) NOT NULL DEFAULT 'pending';
 ALTER TABLE `booking` ADD `name` VARCHAR(50) NOT NULL AFTER `customer_id`;
+ALTER TABLE `user` ADD `admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `password`;
