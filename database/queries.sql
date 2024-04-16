@@ -64,8 +64,8 @@ ALTER TABLE `user` ADD `admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `password`;
 
 INSERT INTO `food` (`id`, `name`, `image`, `description`, `price`, `created_At`) VALUES 
 (NULL, 'chicken tikka', 'menu-1.jpg', 'This is famous food chicken tikka', '222', current_timestamp()),
-(NULL, 'chicken tikka', 'menu-2.jpg', 'This is famous food chicken pizza', '222', current_timestamp()),
-(NULL, 'chicken tikka', 'menu-3.jpg', 'This is famous food chicken beef', '222', current_timestamp()),
-(NULL, 'chicken tikka', 'menu-4.jpg', 'This is famous food chicken tikka', '222', current_timestamp())
+(NULL, 'chicken pizza', 'menu-2.jpg', 'This is famous food chicken pizza', '132', current_timestamp()),
+(NULL, 'beef', 'menu-3.jpg', 'This is famous food  beef', '412', current_timestamp()),
+(NULL, 'mutton', 'menu-4.jpg', 'This is famous food  mutton', '523', current_timestamp())
 
 ;
