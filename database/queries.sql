@@ -61,3 +61,11 @@ ALTER TABLE `booking` CHANGE `time` `time` DATETIME NOT NULL;
 ALTER TABLE `booking` CHANGE `paid` `status` VARCHAR(20) NOT NULL DEFAULT 'pending';
 ALTER TABLE `booking` ADD `name` VARCHAR(50) NOT NULL AFTER `customer_id`;
 ALTER TABLE `user` ADD `admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `password`;
+
+INSERT INTO `food` (`id`, `name`, `image`, `description`, `price`, `created_At`) VALUES 
+(NULL, 'chicken tikka', 'menu-1.jpg', 'This is famous food chicken tikka', '222', current_timestamp()),
+(NULL, 'chicken tikka', 'menu-2.jpg', 'This is famous food chicken pizza', '222', current_timestamp()),
+(NULL, 'chicken tikka', 'menu-3.jpg', 'This is famous food chicken beef', '222', current_timestamp()),
+(NULL, 'chicken tikka', 'menu-4.jpg', 'This is famous food chicken tikka', '222', current_timestamp())
+
+;

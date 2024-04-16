@@ -3,7 +3,7 @@
 
 class App
 {
-    public $app_path = "D:/Xampp/htdocs/01_php/00_projects/02_restorant";
+    public $app_path = "http://localhost\\01_php\\00_projects\\02_restorant";
     public $host = HOST;
     public $dbname = DB_NAME;
     public $user = USER;
@@ -91,7 +91,6 @@ class App
                     $val = md5($val);
                 }
             }
-
 
             $key = implode(",", array_keys($params));
             $placeholders = rtrim(str_repeat('?,', count($params)), ','); // it will remove last comma
@@ -302,7 +301,7 @@ class App
         }
         // move_uploaded_file($tmp_name, '../uploads/'.$newName);
 
-        if (move_uploaded_file($tmp_name, $this->app_path . "/php/uploads/" .$newName)) {
+        if (move_uploaded_file($tmp_name, "../uploads/" .$newName)) {
             // print_r($file);
             return $newName;
         }
