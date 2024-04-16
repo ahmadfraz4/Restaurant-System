@@ -78,57 +78,70 @@ class App
     // Add :- insert data ======= both file data and simple data
     public function insertData($table, $params, $path = '', $sessions = array(), $id_to_save = '')
     {
-        if ($this->isTableExist($table)) {
+        try {
+            if ($this->isTableExist($table)) {
 
-            foreach ($params as &$file) { // & is creating reference to the file This means that any changes made to $value inside the loop will directly affect the corresponding element in the $values array.
-                if (is_array($file) && isset($file['tmp_name'])  && $file['error'] == 0) {
-                   $fileName = $this->fileHandling($file);
-                   $file = $fileName;
-                }
-            }
-            foreach($params as $key => &$val){
-                if(strtolower($key) == "password"){
-                    $val = md5($val);
-                }
-            }
-
-            $key = implode(",", array_keys($params));
-            $placeholders = rtrim(str_repeat('?,', count($params)), ','); // it will remove last comma
-
-          
-            $query = "INSERT into $table ($key) values ($placeholders)";
-            $stmt  = $this->link->prepare($query);
-
-            $types = array();
-            if ($stmt) {
-                $types = $this->filterTypes($params);
-                $stmt->bind_param(implode("", $types), ...array_values($params));
-
-                if ($stmt->execute()) {
-                    // Retrieve the last inserted ID
-                    $last_Inserted_Id = $this->link->insert_id;
-                    if(session_status() == PHP_SESSION_NONE){
-                        session_start();
+                foreach ($params as &$file) { // & is creating reference to the file This means that any changes made to $value inside the loop will directly affect the corresponding element in the $values array.
+                    if (is_array($file) && isset($file['tmp_name'])  && $file['error'] == 0) {
+                       $fileName = $this->fileHandling($file);
+                       $file = $fileName;
                     }
-                    if(is_array($sessions) && !empty($sessions)){
-                        foreach($sessions as $key => $val){
-                            $_SESSION["$key"] = $val;
+                }
+                foreach($params as $key => &$val){
+                    if(strtolower($key) == "password"){
+                        $val = md5($val);
+                    }
+                }
+    
+                $key = implode(",", array_keys($params));
+                $placeholders = rtrim(str_repeat('?,', count($params)), ','); // it will remove last comma
+    
+                
+                $query = "INSERT into $table ($key) values ($placeholders)";
+                $stmt  = $this->link->prepare($query);
+    
+                
+    
+                $types = array();
+                if ($stmt) {
+                    $types = $this->filterTypes($params);
+                    $stmt->bind_param(implode("", $types), ...array_values($params));
+    
+                    if ($stmt->execute()) {
+                        // Retrieve the last inserted ID
+                        $last_Inserted_Id = $this->link->insert_id;
+                        if(session_status() == PHP_SESSION_NONE){
+                            session_start();
                         }
+                        if(is_array($sessions) && !empty($sessions)){
+                            foreach($sessions as $key => $val){
+                                $_SESSION["$key"] = $val;
+                            }
+                        }
+                        if($id_to_save != ''){
+                            $_SESSION["$id_to_save"] = $last_Inserted_Id;
+                        }
+                        if($path != ''){
+                            header("location: $path");
+                        }
+    
+                    }else{
+                        echo "Something went wrong";
                     }
-                    if($id_to_save != ''){
-                        $_SESSION["$id_to_save"] = $last_Inserted_Id;
-                    }
-                    if($path != ''){
-                        header("location: $path");
-                    }
-
-                }else{
-                    echo "Something went wrong";
+                } else {
+                    echo "Failed to prepare statement.";
                 }
+            } 
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() == 1062) {
+                // Handle duplicate entry error here
+                echo "Email already exists.";
             } else {
-                echo "Failed to prepare statement.";
+                // Handle other types of SQL exceptions
+                echo "SQL Error: " . $e->getMessage();
             }
-        } 
+        }
+
     }
 
     // Update :- update data ====== both file data and simple data
@@ -240,7 +253,7 @@ class App
                 $_SESSION['admin'] = $row['admin'];
                 header("location: ".APP_URL);
             }else{
-                echo 'invalid';
+                echo 'invalid email or password';
             }
         }else{
             echo 'User not exist';

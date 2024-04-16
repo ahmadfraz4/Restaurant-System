@@ -10,7 +10,9 @@ if(isset($_POST['submit'])){
 
     $db = new App;
 
-    $db->insertData("user",["name"=>"$name", "email"=>"$email", "password"=>"$password"], APP_URL, ["email" => "$email", "admin"=>0], 'user_id' );
+    $data = $db->insertData("user",["name"=>"$name", "email"=>"$email", "password"=>"$password"], APP_URL, ["email" => "$email", "admin"=>0], 'user_id' );
+    // echo $data;
+   echo "<script>console.log($data)</script>";
 }  
 
 
@@ -68,7 +70,7 @@ if(isset($_POST['submit'])){
                                 </div>
                                 <div class="">
                                     <div class="form-floating">
-                                        <input type="password" name="password" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="password" name="password" class="form-control" id="password" placeholder="Your Email">
                                         <label for="password">Password</label>
                                     </div>
                                 </div>
