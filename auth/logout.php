@@ -1,0 +1,11 @@
+<?php
+
+include "../php/config/config.php";
+
+session_start();
+session_unset();
+session_destroy();
+
+header("location:".$path.'/auth/login.php');
+
+?>
